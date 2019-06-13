@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import state from "./state";
+import Header from "./Header";
+import List from "./List";
+import ajax, { getUrl } from "./ajax";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = state;
+    this.onChange = this.onChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.ajax();
+  }
+
+  async ajax() {
+    this.onChange({ list: [] });
+    const list = await ajax(getUrl(this.state));
+    this.onChange({ list });
+  }
+
+  onChange(state, refresh) {
+    this.setState({ ...this.state, ...state }, () => refresh && this.ajax());
+  }
+
+  render() {
+    const { filters, list } = this.state;
+
+    return (
+      <section>
+        <Header filters={filters} onChange={this.onChange} />
+        <List list={list} styles={filters.image.values[filters.image.active]} />
+      </section>
+    );
+  }
 }
 
 export default App;
