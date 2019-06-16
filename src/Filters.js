@@ -1,7 +1,7 @@
 import React from "react";
 import Form from "./Form";
 
-const Header = ({ filters, onChange }) => {
+const Filters = ({ filters, onChange }) => {
   const handleChange = (type, active) =>
     onChange(
       {
@@ -27,4 +27,4 @@ const Header = ({ filters, onChange }) => {
   );
 };
 
-export default Header;
+export default Filters;

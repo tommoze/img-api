@@ -1,15 +1,16 @@
 import React from "react";
-import "./App.css";
 import state from "./state";
-import Header from "./Header";
+import Filters from "./Filters";
 import List from "./List";
-import ajax, { getUrl } from "./ajax";
+import ajax from "./ajax";
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = state;
-    this.onChange = this.onChange.bind(this);
+    this.onChange = (state, refresh) => {
+      this.setState({ ...this.state, ...state }, () => refresh && this.ajax());
+    };
   }
 
   componentDidMount() {
@@ -18,12 +19,7 @@ class App extends React.Component {
 
   async ajax() {
     this.onChange({ list: [] });
-    const list = await ajax(getUrl(this.state));
-    this.onChange({ list });
-  }
-
-  onChange(state, refresh) {
-    this.setState({ ...this.state, ...state }, () => refresh && this.ajax());
+    ajax(this.state).then(list => this.onChange({ list }));
   }
 
   render() {
@@ -31,7 +27,7 @@ class App extends React.Component {
 
     return (
       <section>
-        <Header filters={filters} onChange={this.onChange} />
+        <Filters filters={filters} onChange={this.onChange} />
         <List list={list} styles={filters.image.values[filters.image.active]} />
       </section>
     );

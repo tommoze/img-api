@@ -1,24 +1,12 @@
-body {
-  margin: 0;
-  padding-top: 60px;
-}
-
-form {
-  margin: 10px;
-}
-
-button {
-  display: inline-block;
-  vertical-align: middle;
-}
-
 * {
   box-sizing: border-box;
   margin: 0;
 }
 
-section {
-  padding: 8px;
+body {
+  margin: 0;
+  padding: 5px;
+  padding-top: 70px;
 }
 
 article {
@@ -28,14 +16,8 @@ article {
 }
 
 figure {
-  width: 33.333%;
+  width: 50%;
   text-align: center;
-}
-
-@media (max-width: 800px) {
-  figure {
-    width: 50%;
-  }
 }
 
 input {
@@ -45,18 +27,13 @@ input {
 img {
   width: 100%;
   height: 100%;
-  border-radius: 16px;
-  padding: 8px;
-}
-
-form {
-  display: inline-block;
-  margin-right: 16px;
-  vertical-align: middle;
+  border-radius: 8px;
+  padding: 5px;
 }
 
 label {
   display: block;
+  margin-right: 20px;
 }
 
 header {
@@ -65,4 +42,6 @@ header {
   left: 0;
   right: 0;
   background: #eee;
+  display: flex;
+  padding: 10px;
 }
